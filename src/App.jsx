@@ -9,12 +9,18 @@ function App() {
     projects: [],
   });
 
-  let content;
+  function updateActiveScreen() {
+    let content;
 
-  if (projectState.selectedProjectId === null) {
-    content = <NewProject addNewProject={addNewProject} />;
-  } else if (projectState.selectedProjectId === undefined) {
-    content = <NoProjectSelected handleCreateClick={updateProjectId} />;
+    if (projectState.selectedProjectId === null) {
+      content = (
+        <NewProject onClose={handleCloseProject} onAddProject={addNewProject} />
+      );
+    } else if (projectState.selectedProjectId === undefined) {
+      content = <NoProjectSelected handleCreateClick={updateProjectId} />;
+    }
+
+    return content;
   }
 
   function updateProjectId() {
@@ -40,9 +46,23 @@ function App() {
     });
   }
 
+  function handleCloseProject() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+      };
+    });
+  }
+
+  const content = updateActiveScreen();
+
   return (
     <main className="h-screen my-8 flex gap-8">
-      <SideBar handleCreateClick={updateProjectId} />
+      <SideBar
+        projects={projectState.projects}
+        handleCreateClick={updateProjectId}
+      />
       {content}
     </main>
   );

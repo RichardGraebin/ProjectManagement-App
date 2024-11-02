@@ -1,24 +1,29 @@
 import { useRef } from "react";
 import Input from "./Input";
 
-export default function NewProject({ addNewProject }) {
+export default function NewProject({ onClose, onAddProject }) {
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
 
   function handleSave() {
-    addNewProject({
+    onAddProject({
       title: title.current.value,
       description: description.current.value,
       dueDate: dueDate.current.value,
     });
+
+    onClose();
   }
 
   return (
     <div className="w-2/3 mt-16">
       <menu className="flex items-center justify-end gap-4 my-4">
         <li>
-          <button className="text-stone-800 hover:text-stone-950">
+          <button
+            onClick={onClose}
+            className="text-stone-800 hover:text-stone-950"
+          >
             Cancel
           </button>
         </li>
