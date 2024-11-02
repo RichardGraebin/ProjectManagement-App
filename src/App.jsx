@@ -12,7 +12,7 @@ function App() {
   let content;
 
   if (projectState.selectedProjectId === null) {
-    content = <NewProject />;
+    content = <NewProject addNewProject={addNewProject} />;
   } else if (projectState.selectedProjectId === undefined) {
     content = <NoProjectSelected handleCreateClick={updateProjectId} />;
   }
@@ -22,6 +22,20 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: null,
+      };
+    });
+  }
+
+  function addNewProject(projectData) {
+    setProjectState((prevState) => {
+      const newProject = {
+        ...projectData,
+        id: Math.random(),
+      };
+
+      return {
+        ...prevState,
+        projects: [...prevState.projects, newProject],
       };
     });
   }
