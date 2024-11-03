@@ -2,6 +2,7 @@ import { useState } from "react";
 import SideBar from "./components/SideBar";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
+import SelectedProject from "./components/SelectedProject";
 
 function App() {
   const [projectState, setProjectState] = useState({
@@ -10,7 +11,11 @@ function App() {
   });
 
   function updateActiveScreen() {
-    let content;
+    const selectedProjectId = projectState.projects.find(
+      (project) => project.id === projectState.selectedProjectId
+    );
+
+    let content = <SelectedProject project={selectedProjectId} />;
 
     if (projectState.selectedProjectId === null) {
       content = (
@@ -55,6 +60,15 @@ function App() {
     });
   }
 
+  function handleSelectProject(id) {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      };
+    });
+  }
+
   const content = updateActiveScreen();
 
   return (
@@ -62,6 +76,7 @@ function App() {
       <SideBar
         projects={projectState.projects}
         handleCreateClick={updateProjectId}
+        onSelectProject={handleSelectProject}
       />
       {content}
     </main>
