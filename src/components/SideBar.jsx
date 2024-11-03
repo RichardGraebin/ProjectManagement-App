@@ -12,7 +12,7 @@ export default function SideBar({
       <div>
         <Button onClick={handleCreateClick}>+ Add Project</Button>
       </div>
-      <ul>
+      <ul className="mt-8">
         {projects.map((eachProject) => {
           let cssClasses =
             "w-full text-left px-2 py-1 rounded  my-1 hover:text-stone-200 hover:bg-stone-800";
@@ -24,7 +24,7 @@ export default function SideBar({
           }
 
           return (
-            <li className="mt-8" key={eachProject.id}>
+            <li key={eachProject.id}>
               <button
                 className={cssClasses}
                 onClick={() => {
