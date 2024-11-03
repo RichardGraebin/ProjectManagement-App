@@ -15,8 +15,6 @@ function App() {
       (project) => project.id === projectState.selectedProjectId
     );
 
-    console.log(selectedProjectId);
-
     let content = (
       <SelectedProject
         project={selectedProjectId}
