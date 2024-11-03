@@ -123,6 +123,7 @@ function App() {
         projects={projectState.projects}
         handleCreateClick={updateProjectId}
         onSelectProject={handleSelectProject}
+        selectedProjectId={projectState.selectedProjectId}
       />
       {content}
     </main>
